@@ -1,0 +1,76 @@
+project:
+  packs:
+    - pack: TexasInstruments::MSP432E4_DFP
+    - pack: ARM::CMSIS
+    - pack: ARM::CMSIS-NN
+    - pack: ARM::CMSIS-DSP
+  setups:
+    - setup: Options for Target_1
+      processor:
+        trustzone: non-secure
+      add-path:
+        - ../../../../../../../../../../../Keil_v5/ARM/ARMCLANG/include
+      debug: "on"
+      misc:
+        - C:
+            - -std=c99
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+          CPP:
+            - -xc++
+            - -std=c++03
+          ASM:
+            - -masm=auto
+          Link:
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+  groups:
+    - group: Source Group 1
+      files:
+        - file: PLL.c
+        - file: SysTick.c
+        - file: vl53l1_platform_2dx4.c
+        - file: VL53L1X_api.c
+        - file: onboardLEDs.c
+        - file: uart.c
+        - file: measure.c
+        - file: measure.h
+        - file: spin_motor.h
+        - file: spin_motor.c
+        - file: main.c
+        - file: I2C_init.h
+        - file: I2C_init.c
+        - file: onboard_button.h
+        - file: onboard_button.c
+        - file: variables.h
+        - file: bus_speed_demo.h
+        - file: bus_speed_demo.c
+  components:
+    - component: ARM::CMSIS:CORE
+    - component: TexasInstruments::Device:Startup
